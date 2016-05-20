@@ -20,8 +20,8 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
         # to check the magic bytes of any images using File::LibMagic
         my $magick = Image::Magick::Safer->new;
 
-        # if any @files have a MIME type that looks quesiontable then
-        # $e will be popluated
+        # if any @files have a MIME type that looks questionable then
+        # $e will be populated
         if ( my $e = $magick->Read( @files ) ) {
                 # bail out, unsafe to continue
                 ....
@@ -31,7 +31,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 Image::Magick::Safer is a drop in wrapper around Image::Magick, it adds a
 magic byte check to the `Read` method to check the file MIME type using
-[File::LibMagic](https://metacpan.org/pod/File::LibMagic). If a file looks questionable then it will preven the file
+[File::LibMagic](https://metacpan.org/pod/File::LibMagic). If a file looks questionable then it will prevent the file
 being passed to the real Image::Magick::Read method and return an error.
 
 You can replace any calls to `Image::Magick` with `Image::Magick::Safer`
@@ -66,7 +66,7 @@ for [File::LibMagic](https://metacpan.org/pod/File::LibMagic) for more informati
 
 # WHY ISN'T THIS A PATCH IN Image::Magick?
 
-Image::Magick moves at a glacial pace, and involves a 14,000 .xs file. No
+Image::Magick moves at a glacial pace, and involves a 14,000 line XS file. No
 thanks. This will probably get patched in the next version, so for the time
 being this module exists.
 
