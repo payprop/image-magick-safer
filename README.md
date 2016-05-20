@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 # VERSION
 
-0.01
+0.02
 
 # SYNOPSIS
 
@@ -35,7 +35,8 @@ magic byte check to the `Read` method to check the file MIME type using
 being passed to the real Image::Magick::Read method and return an error.
 
 You can replace any calls to `Image::Magick` with `Image::Magick::Safer`
-and the functionality will be retained with the added Read protection.
+and the functionality will be retained with the added Read protection. The
+aliases for `Read` will also be made safe.
 
 If you need to override the default MIME types then you can set the modules
 `$Image::Magick::Safer::Unsafe` hash to something else or add extra types:

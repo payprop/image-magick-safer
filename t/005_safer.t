@@ -36,20 +36,24 @@ $Image::Magick::Safer::Unsafe->{'image/svg+xml'} = 1;
 
 foreach my $file ( glob catdir( $Bin,"exploit","*" ) ) {
 
-	my $e = $magick->Read( $file );
-	like(
-		$e,
-		qr/potentially unsafe|unable to establish/,
-		"Read exception with exploitable @{[ basename $file ]}"
-	);
+	foreach my $method ( qw/ Read ReadImage read readimage / ) {
+		my $e = $magick->$method( $file );
+		like(
+			$e,
+			qr/potentially unsafe|unable to establish/,
+			"$method exception with exploitable @{[ basename $file ]}"
+		);
+	}
 }
 
 foreach my $file ( glob catdir( $Bin,"genuine","*" ) ) {
 
-	ok(
-		! $magick->Read( $file ),
-		"No Read exception with safe @{[ basename $file ]}"
-	);
+	foreach my $method ( qw/ Read ReadImage read readimage / ) {
+		ok(
+			! $magick->$method( $file ),
+			"No $method exception with safe @{[ basename $file ]}"
+		);
+	}
 }
 
 done_testing();

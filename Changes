@@ -1,4 +1,7 @@
 Revision history for Image-Magick-Safer
 
+0.02     2016-05-20
+        - [Fix] add Read aliases: ReadImage, read, readimage
+
 0.01     2016-05-20
         - First release

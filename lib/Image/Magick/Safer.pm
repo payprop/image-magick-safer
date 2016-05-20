@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 =head1 VERSION
 
-0.01
+0.02
 
 =head1 SYNOPSIS
 
@@ -35,7 +35,8 @@ L<File::LibMagic>. If a file looks questionable then it will prevent the file
 being passed to the real Image::Magick::Read method and return an error.
 
 You can replace any calls to C<Image::Magick> with C<Image::Magick::Safer>
-and the functionality will be retained with the added Read protection.
+and the functionality will be retained with the added Read protection. The
+aliases for C<Read> will also be made safe.
 
 If you need to override the default MIME types then you can set the modules
 C<$Image::Magick::Safer::Unsafe> hash to something else or add extra types:
@@ -78,7 +79,7 @@ use warnings;
 use parent 'Image::Magick';
 use File::LibMagic;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # imagemagick can automatically uncompress archive files so there's another
 # attack vector in having an exploit image zipped up, so just checking for
@@ -130,6 +131,11 @@ sub Read {
 	# all images *seem* ok, delegate to the real Image::Magick
 	return $self->SUPER::Read( @images );
 }
+
+# Image::Magick has a few aliases for the Read method
+*Image::Magick::Safer::ReadImage = *Image::Magick::Safer::Read;
+*Image::Magick::Safer::read      = *Image::Magick::Safer::Read;
+*Image::Magick::Safer::readimage = *Image::Magick::Safer::Read;
 
 =head1 SEE ALSO
 
