@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 =head1 VERSION
 
-0.02
+0.03
 
 =head1 SYNOPSIS
 
@@ -33,6 +33,8 @@ Image::Magick::Safer is a drop in wrapper around Image::Magick, it adds a
 magic byte check to the C<Read> method to check the file MIME type using
 L<File::LibMagic>. If a file looks questionable then it will prevent the file
 being passed to the real Image::Magick::Read method and return an error.
+If a file cannot be opened, because it does not exist or it is prefixed
+with a pipe, an error will also be returned.
 
 You can replace any calls to C<Image::Magick> with C<Image::Magick::Safer>
 and the functionality will be retained with the added Read protection. The
@@ -79,7 +81,7 @@ use warnings;
 use parent 'Image::Magick';
 use File::LibMagic;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # imagemagick can automatically uncompress archive files so there's another
 # attack vector in having an exploit image zipped up, so just checking for
@@ -114,6 +116,13 @@ sub Read {
 		#     mime_type
 		if ( my $info = $magic->info_from_filename( $image ) ) {
 
+			$info->{mime_type} = ''
+				if ! defined $info->{mime_type};
+
+			if ( $info->{mime_type} =~ /No such file or directory/i ) {
+				return $info->{mime_type};
+			}
+
 			# if the mime_type is within the $Image::Magick::Safer::Unsafe
 			# hash or we can't figure it out then we assume it's not a real
 			# image and therefore could have an exploit within the file
@@ -144,6 +153,9 @@ L<Image::Magick> - the library this module wraps
 L<https://www.imagemagick.org> - ImageMagick
 
 L<https://imagetragick.com/> - ImageMagick exploits
+
+L<http://permalink.gmane.org/gmane.comp.security.oss.general/19669> -
+GraphicsMagick and ImageMagick popen() shell vulnerability via filename
 
 =head1 AUTHOR
 

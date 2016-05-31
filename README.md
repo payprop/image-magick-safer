@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 # VERSION
 
-0.02
+0.03
 
 # SYNOPSIS
 
@@ -33,6 +33,8 @@ Image::Magick::Safer is a drop in wrapper around Image::Magick, it adds a
 magic byte check to the `Read` method to check the file MIME type using
 [File::LibMagic](https://metacpan.org/pod/File::LibMagic). If a file looks questionable then it will prevent the file
 being passed to the real Image::Magick::Read method and return an error.
+If a file cannot be opened, because it does not exist or it is prefixed
+with a pipe, an error will also be returned.
 
 You can replace any calls to `Image::Magick` with `Image::Magick::Safer`
 and the functionality will be retained with the added Read protection. The
@@ -78,6 +80,9 @@ being this module exists.
 [https://www.imagemagick.org](https://www.imagemagick.org) - ImageMagick
 
 [https://imagetragick.com/](https://imagetragick.com/) - ImageMagick exploits
+
+[http://permalink.gmane.org/gmane.comp.security.oss.general/19669](http://permalink.gmane.org/gmane.comp.security.oss.general/19669) -
+GraphicsMagick and ImageMagick popen() shell vulnerability via filename
 
 # AUTHOR
 

@@ -34,6 +34,8 @@ no warnings 'once';
 # add SVG check to the defaults
 $Image::Magick::Safer::Unsafe->{'image/svg+xml'} = 1;
 
+note( "magic byte check" );
+
 foreach my $file ( glob catdir( $Bin,"exploit","*" ) ) {
 
 	foreach my $method ( qw/ Read ReadImage read readimage / ) {
@@ -52,6 +54,23 @@ foreach my $file ( glob catdir( $Bin,"genuine","*" ) ) {
 		ok(
 			! $magick->$method( $file ),
 			"No $method exception with safe @{[ basename $file ]}"
+		);
+	}
+}
+
+note( "disallow leading pipe" );
+
+foreach my $file (
+	'|echo Hello > hello.txt;',
+	'i do not exist',
+) {
+
+	foreach my $method ( qw/ Read ReadImage read readimage / ) {
+		my $e = $magick->$method( $file );
+		like(
+			$e,
+			qr/cannot open/,
+			"$method exception with exploitable @{[ basename $file ]}"
 		);
 	}
 }

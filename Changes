@@ -1,5 +1,10 @@
 Revision history for Image-Magick-Safer
 
+0.03     2016-05-31
+        - [Add] return error on bad filenames, which also catches
+          use of pipe as leading char to defend against popen()
+          shell vulnerability
+
 0.02     2016-05-20
         - [Fix] add Read aliases: ReadImage, read, readimage
 
