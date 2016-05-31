@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 =head1 VERSION
 
-0.03
+0.04
 
 =head1 SYNOPSIS
 
@@ -81,7 +81,7 @@ use warnings;
 use parent 'Image::Magick';
 use File::LibMagic;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # imagemagick can automatically uncompress archive files so there's another
 # attack vector in having an exploit image zipped up, so just checking for

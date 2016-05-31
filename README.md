@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 # VERSION
 
-0.03
+0.04
 
 # SYNOPSIS
 

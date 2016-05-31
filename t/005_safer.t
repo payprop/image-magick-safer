@@ -66,7 +66,8 @@ foreach my $file (
 ) {
 
 	foreach my $method ( qw/ Read ReadImage read readimage / ) {
-		my $e = $magick->$method( $file );
+		my $e = eval { $magick->$method( $file ) };
+		$e = $@ if ! $e;
 		like(
 			$e,
 			qr/cannot open/,
