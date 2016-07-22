@@ -62,6 +62,9 @@ note( "disallow leading pipe" );
 
 foreach my $file (
 	'|echo Hello > hello.txt;',
+	' |echo Hello > hello.txt;',
+	'  |echo Hello > hello.txt;',
+	'	|echo Hello > hello.txt;',
 	'i do not exist',
 ) {
 

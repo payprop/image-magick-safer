@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 # VERSION
 
-0.04
+0.05
 
 # SYNOPSIS
 
@@ -58,6 +58,9 @@ The default MIME types considered unsafe are as follows:
         application/x-rar
         application/x-z
         application/z
+
+Leading pipes are also considered unsafe, as well as any reference to files
+that cannot be found.
 
 Note that i make **NO GUARANTEE** that this will fix and/or protect you from
 exploits, it's just another safety check. You should update to the latest
