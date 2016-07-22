@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 =head1 VERSION
 
-0.05
+0.06
 
 =head1 SYNOPSIS
 
@@ -84,7 +84,7 @@ use warnings;
 use parent 'Image::Magick';
 use File::LibMagic;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 # imagemagick can automatically uncompress archive files so there's another
 # attack vector in having an exploit image zipped up, so just checking for
@@ -113,7 +113,7 @@ sub Read {
 	foreach my $image ( @images ) {
 
 		return "cannot open $image (file not found)" if ! -f $image;
-		return "cannot open $image (leading pipe)" if $image =~ /\s*\|/;
+		return "cannot open $image (leading pipe)" if $image =~ /^\s*\|/;
 
 		# info has:
 		#     mime_with_encoding
