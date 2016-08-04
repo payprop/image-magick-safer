@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 # VERSION
 
-0.06
+0.07
 
 # SYNOPSIS
 
@@ -75,6 +75,12 @@ for [File::LibMagic](https://metacpan.org/pod/File::LibMagic) for more informati
 Image::Magick moves at a glacial pace, and involves a 14,000 line XS file. No
 thanks. This will probably get patched in the next version, so for the time
 being this module exists.
+
+# KNOWN BUGS
+
+DOES NOT WORK with BSD 10.1 and 7.0.1 and i can't figure out why. If you can
+figure out why then please submit a pull request. This is possibly some libmagic
+weirdness going on.
 
 # SEE ALSO
 

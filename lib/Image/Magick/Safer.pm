@@ -10,7 +10,7 @@ Image::Magick::Safer - Wrap Image::Magick Read method to check magic bytes
 
 =head1 VERSION
 
-0.06
+0.07
 
 =head1 SYNOPSIS
 
@@ -84,7 +84,7 @@ use warnings;
 use parent 'Image::Magick';
 use File::LibMagic;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 # imagemagick can automatically uncompress archive files so there's another
 # attack vector in having an exploit image zipped up, so just checking for
@@ -151,6 +151,12 @@ sub Read {
 *Image::Magick::Safer::ReadImage = *Image::Magick::Safer::Read;
 *Image::Magick::Safer::read      = *Image::Magick::Safer::Read;
 *Image::Magick::Safer::readimage = *Image::Magick::Safer::Read;
+
+=head1 KNOWN BUGS
+
+DOES NOT WORK with BSD 10.1 and 7.0.1 and i can't figure out why. If you can
+figure out why then please submit a pull request. This is possibly some libmagic
+weirdness going on.
 
 =head1 SEE ALSO
 

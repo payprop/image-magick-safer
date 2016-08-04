@@ -20,8 +20,16 @@ use Test::More;
 use FindBin qw/ $Bin /;
 use File::Spec::Functions qw/ catdir /;
 use File::Basename;
+use Config;
 
 use Image::Magick::Safer;
+
+if (
+	$^O =~ /BSD/i
+	&& $Config{osvers} =~ /(10\.1|7\.0\.1)/
+) {
+	plan skip_all => "Issues with BSD $1, see GH #2";
+}
 
 my $magick = Image::Magick::Safer->new;
 
